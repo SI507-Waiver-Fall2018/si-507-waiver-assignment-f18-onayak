@@ -1,4 +1,10 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+For SI 507 Waiver, fall 2018
+@author: oshinnayak, onayak @umich.edu
 
+"""
 import sys
 import sqlite3
 
