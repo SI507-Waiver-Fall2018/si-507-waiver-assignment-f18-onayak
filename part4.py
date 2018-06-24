@@ -20,7 +20,7 @@ import csv
 # And opening / using the CSV file you created earlier with noun data from tweets
 # Define a csv reader function
 
-csvfile= '/Users/oshinnayak/Desktop/noun_data.csv'
+csvfile= 'noun_data.csv'
 df = pd.read_csv(csvfile)
 #print(df['Noun'])
 trace1 = go.Bar(x=df['Noun'], y=df['Number'],text=df['Noun'])           
