@@ -1,4 +1,11 @@
 # these should be the only imports you need
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+For SI 507 Waiver, fall 2018
+@author: oshinnayak, onayak @umich.edu
+
+"""
 
 import requests
 from bs4 import BeautifulSoup
