@@ -18,8 +18,6 @@ page = requests.get('http://michigandaily.com')
 contents = page.content
 soup = BeautifulSoup(contents, 'html.parser')
 
-#print(soup.prettify())
-
 content_mostread = soup.find('div', class_='view-most-read').find('ol').findAll('a')
 
 #print(len(content_mostread))
@@ -27,19 +25,16 @@ content_mostread = soup.find('div', class_='view-most-read').find('ol').findAll(
 
 
 #Create url for getting author
-
+print("Michigan Daily -- MOST READ")
 for item in content_mostread:
-    print("Title: "+item.text)
+    print(item.text)
     page_article = requests.get('http://michigandaily.com'+item['href'])
     content_article = page_article.content
     soup_article = BeautifulSoup(content_article, 'html.parser')
     try:
         author_name = soup_article.find("div", attrs = {"class" : "byline"}).find('div').find('a').text.strip()
-        print("Author: " + author_name)            
+        print("by " + author_name)            
     except AttributeError:
-        print("Author: " + soup_article.find("p", attrs = {"class" : "info"}).contents[0].strip())
+        print(soup_article.find("p", attrs = {"class" : "info"}).contents[0].strip())
     except:
         print("Author details not found")
- 
-        
-            
