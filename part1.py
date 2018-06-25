@@ -5,7 +5,6 @@
 """
 For SI 507 Waiver, fall 2018
 @author: oshinnayak, onayak @umich.edu
-
 """
 
 import tweepy
@@ -25,6 +24,13 @@ from nltk import FreqDist
 def pretty(obj):
     return json.dumps(obj, sort_keys=True, indent=2)
 
+def printResults(list_common, word_type):
+	result_string = []
+	for item in list_common:
+		word = str(item[0]) + "(" + str(item[1]) + ")"
+		result_string.append(word)
+	print(word_type + ' '.join(result_string))
+	
 # Get these from the Twitter website, by going to
 # https://apps.twitter.com/ and creating an "app"
 # Don't fill in a callback_url; instead, put in a placeholder for the website
@@ -61,7 +67,7 @@ tokens = nltk.word_tokenize(' '.join(tweets))
 #Removing Stop Words
 punctuation = list(string.punctuation)
 stop = stopwords.words('english') + punctuation + ['rt', 'via', 'RT', 'https', 'http']
-terms_stop = [term for term in tokens if ((term not in stop) and (len(term)>1) and (re.search('[a-zA-Z]', term)) and (not re.search('^HTT', term)) and (not re.search('^htt', term)))]
+terms_stop = [term for term in tokens if ((term not in stop) and (len(term)>1) and (term[0] != "'"   ) and (re.search('[a-zA-Z]', term)) and (not re.search('^HTT', term)) and (not re.search('^htt', term)))]
 
 terms_tagged = nltk.pos_tag(terms_stop)
 
@@ -70,11 +76,11 @@ tok_nouns = [term_tagged[0] for term_tagged in terms_tagged if term_tagged[1].st
 tok_adjs = [term_tagged[0] for term_tagged in terms_tagged if term_tagged[1].startswith('JJ')]
    
  
-print("VERBS: " + str(FreqDist(tok_verbs).most_common(5)))
+printResults(FreqDist(tok_verbs).most_common(5),"VERBS: ")
+printResults(FreqDist(tok_nouns).most_common(5),"NOUNS: ")
+printResults(FreqDist(tok_adjs).most_common(5),"ADJECTIVES: ")
 
-print("NOUNS: " + str(FreqDist(tok_nouns).most_common(5)))
 
-print("ADJECTIVES " + str(FreqDist(tok_adjs).most_common(5)))
 
 #print(json.dumps(tweets_analyzed[0]._json, indent=4, sort_keys=True))
 #print(tweets_analyzed[0].retweeted)
